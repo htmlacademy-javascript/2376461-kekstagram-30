@@ -3,12 +3,8 @@ function checkMaxLength(str,mLength){
 }
 
 function isPalindrom(str){
-  const normalStr = str.replaceAll(' ','').toLowerCase();
-  let revercedStr = '';
-
-  for (let i = normalStr.length - 1; i >= 0; i--) {
-    revercedStr += normalStr.at(i);
-  }
+  const normalStr = str.toString().replaceAll(' ','').toLowerCase();
+  const revercedStr = normalStr.split("").reverse().join("").toString();
 
   return normalStr === revercedStr;
 }
@@ -29,5 +25,9 @@ function getNumbers(str){
     return NaN;
   }
 
-  return parseInt(result);
+  return Number(result);
 }
+
+console.log(checkMaxLength('проверяемая строка', 18));//true
+console.log(isPalindrom(68.86));//true
+console.log(getNumbers('a1 b2 c3'));//123
