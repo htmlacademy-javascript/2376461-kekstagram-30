@@ -10,11 +10,11 @@ const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)
 
 //обьект описания
 const photoDescription = {
-id: 0,
-url: '',
-description: '',
-likes: 0,
-comments: [],
+  id: 0,
+  url: '',
+  description: '',
+  likes: 0,
+  comments: [],
 };
 //обьект комментария
 const comment = {
