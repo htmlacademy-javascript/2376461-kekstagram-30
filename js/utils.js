@@ -5,7 +5,7 @@ function checkMaxLength(str,mLength){
 //проверка на палиндром
 function isPalindrom(str){
   const normalStr = str.toString().replaceAll(' ','').toLowerCase();
-  const revercedStr = normalStr.split("").reverse().join("").toString();
+  const revercedStr = normalStr.split('').reverse().join('').toString();
 
   return normalStr === revercedStr;
 }
