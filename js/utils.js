@@ -5,7 +5,7 @@ function checkMaxLength(str,mLength){
 //проверка на палиндром
 function isPalindrom(str){
   const normalStr = str.toString().replaceAll(' ','').toLowerCase();
-  const revercedStr = normalStr.split("").reverse().join("").toString();
+  const revercedStr = normalStr.split('').reverse().join('').toString();
 
   return normalStr === revercedStr;
 }
@@ -28,7 +28,17 @@ function getNumbers(str){
 
   return Number(result);
 }
+//получить случайный элемент из массива
+const getRandomElementFromArr = (arr) => arr[getRandomNumber(0,arr.length - 1)];
+//получить случайное число
+const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+//возвращает уникальный id
+const getId = () => {
+  let count = 0;
 
-//console.log(checkMaxLength('проверяемая строка', 18));//true
-//console.log(isPalindrom(68.86));//true
-//console.log(getNumbers('a1 b2 c3'));//123
+  return () => {
+    count++;
+    return count;
+  };
+};
+export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId};
