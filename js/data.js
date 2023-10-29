@@ -7,23 +7,6 @@ const COMMENTS_MAX_COUNT = 20;
 const AVATARS_COUNT = 6;
 const PHOTOS_COUNT = 6;
 
-
-//обьект описания
-const photoDescription = {
-  id: 0,
-  url: '',
-  description: '',
-  likes: 0,
-  comments: [],
-};
-//обьект комментария
-const comment = {
-  id: 0,
-  avatar: '',
-  message: '',
-  name: ''
-};
-
 const ALL_COMMENTS = ['Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -59,7 +42,7 @@ const createComment = () => ({
 //создать описание
 const createDescription = () => ({
   id: generateDescriptionId(),
-  url: `photos/${getRandomNumber(0,PHOTOS_COUNT)}.jpg`,
+  url: `photos/${getRandomNumber(1,PHOTOS_COUNT)}.jpg`,
   description: getRandomElementFromArr(ALL_DESCRIPTIONS),
   likes: getRandomNumber(LIKE_MIN_COUNT,LIKE_MAX_COUNT),
   comments:Array.from({ length: getRandomNumber(COMMENTS_MIN_COUNT,COMMENTS_MAX_COUNT) }, createComment)
