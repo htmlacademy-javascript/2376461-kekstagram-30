@@ -28,10 +28,10 @@ function getNumbers(str){
 
   return Number(result);
 }
-//получить случайный элемент из массива
-const getRandomElementFromArr = (arr) => arr[getRandomNumber(0,arr.length - 1)];
 //получить случайное число
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
+//получить случайный элемент из массива
+const getRandomElementFromArr = (arr) => arr[getRandomNumber(0,arr.length - 1)];
 //возвращает уникальный id
 const getId = () => {
   let count = 0;
