@@ -35,7 +35,7 @@ const generateCommentId = getId();//генератор уникального и
 //создать комментарий
 const createComment = () => ({
   id: generateCommentId(),
-  avatar: `img/avatar-${getRandomNumber(0,AVATARS_COUNT)}.jpg`,
+  avatar: `img/avatar-${getRandomNumber(1,AVATARS_COUNT)}.svg`,
   message: createMessage(ALL_COMMENTS),
   name: getRandomElementFromArr(ALL_NAMES)
 });

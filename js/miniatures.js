@@ -1,17 +1,19 @@
-import {createAllDescriptions} from './data.js';
-
 const PICTURE_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
 const PICTURE_LIST = document.querySelector('.pictures');
 
-const picData = createAllDescriptions(25);
-const picFragment = document.createDocumentFragment();
+const createMiniatures = (data)=>{
+  const picFragment = document.createDocumentFragment();
 
-for(let i = 0;i <= picData.length - 1; i++){
-  let picNode = PICTURE_TEMPLATE.cloneNode(true);
-  picNode.querySelector('.picture__img').src = picData[i].url;
-  picNode.querySelector('.picture__img').alt = picData[i].description;
-  picNode.querySelector('.picture__comments').textContent = picData[i].comments.length;
-  picNode.querySelector('.picture__likes').textContent = picData[i].likes;
-  picFragment.append(picNode);
-}
-PICTURE_LIST.append(picFragment);
+  data.forEach(({id,url,description,comments,likes}) => {
+    const pictureNode = PICTURE_TEMPLATE.cloneNode(true);
+    pictureNode.querySelector('.picture__img').dataset.id = id;
+    pictureNode.querySelector('.picture__img').src = url;
+    pictureNode.querySelector('.picture__img').alt = description;
+    pictureNode.querySelector('.picture__comments').textContent = comments.length;
+    pictureNode.querySelector('.picture__likes').textContent = likes;
+    picFragment.append(pictureNode);
+  });
+  PICTURE_LIST.append(picFragment);
+};
+
+export {createMiniatures};

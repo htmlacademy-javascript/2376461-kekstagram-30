@@ -41,4 +41,5 @@ const getId = () => {
     return count;
   };
 };
+
 export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId};
