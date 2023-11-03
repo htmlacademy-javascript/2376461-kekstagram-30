@@ -24,29 +24,28 @@ const renderComments = (arrComments) =>{
   COMMENTS_LIST.append(commentsFragment);
 };
 
-const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeBigPicture();
-  }
-};
-
-function closeBigPicture () {
-  document.removeEventListener('keydown', onDocumentKeydown);
+const closeBigPicture = () => {
 
   BIG_PICTURE.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 
   document.querySelector('.social__comment-count').classList.remove('hidden');
   document.querySelector('.comments-loader').classList.remove('hidden');
-}
+};
+
+const onDocumentKeydown = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+    closeBigPicture();
+  }
+};
+document.addEventListener('keydown', onDocumentKeydown);
 
 CLOSE_BUTTON.addEventListener('click', () => {
   closeBigPicture();
 });
 
 const openBigPicture = (data) => {
-  document.addEventListener('keydown', onDocumentKeydown);
 
   document.querySelector('.social__comment-count').classList.add('hidden');
   document.querySelector('.comments-loader').classList.add('hidden');
