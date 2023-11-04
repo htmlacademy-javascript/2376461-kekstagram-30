@@ -5,8 +5,6 @@ const CLOSE_BUTTON = document.querySelector('.big-picture__cancel');
 const COMMENTS_TEMPLATE = document.querySelector('#comment').content.querySelector('.social__comment');
 const COMMENTS_LIST = document.querySelector('.social__comments');
 
-let picturesData = null;
-
 const renderComments = (arrComments) =>{
   const commentsFragment = document.createDocumentFragment();
 
@@ -59,15 +57,14 @@ const openBigPicture = (data) => {
   renderComments(data.comments);
 };
 
-const showBigPicture = (evt) =>{
+const showBigPicture = (data,evt) =>{
   evt.preventDefault();
-  const picture = picturesData.find((item) => item.id === Number(evt.target.dataset.id));
+  const picture = data.find((item) => item.id === Number(evt.target.dataset.id));
   openBigPicture(picture);
 };
 
 const initFullScreenPicture = (data) => {
-  PICTURE_LIST.addEventListener('click', showBigPicture);
-  picturesData = data;
+  PICTURE_LIST.addEventListener('click', (evt) => showBigPicture(data,evt));
 };
 
 export {initFullScreenPicture};
