@@ -1,4 +1,4 @@
-
+import {isEscapeKey} from './utils.js';
 const BIG_PICTURE = document.querySelector('.big-picture');
 const PICTURE_LIST = document.querySelector('.pictures');
 const CLOSE_BUTTON = document.querySelector('.big-picture__cancel');
@@ -6,8 +6,6 @@ const COMMENTS_TEMPLATE = document.querySelector('#comment').content.querySelect
 const COMMENTS_LIST = document.querySelector('.social__comments');
 
 let picturesData = null;
-
-const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const renderComments = (arrComments) =>{
   const commentsFragment = document.createDocumentFragment();
