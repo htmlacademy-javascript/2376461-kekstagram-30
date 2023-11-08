@@ -41,4 +41,5 @@ const getId = () => {
     return count;
   };
 };
-export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId};
+const isEscapeKey = (evt) => evt.key === 'Escape';
+export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId,isEscapeKey};
