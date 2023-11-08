@@ -36,11 +36,8 @@ const renderComments = () =>{
 };
 
 const closeBigPicture = () => {
-
   BIG_PICTURE.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
-
-  document.querySelector('.social__comment-count').classList.remove('hidden');
 };
 
 const onDocumentKeydown = (evt) => {
