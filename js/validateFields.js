@@ -23,22 +23,31 @@ const validateHashTagsField = (value) =>{
     errorMessages.valid =
       'хэш-тег должен начинаеться с #, состоять из букв и цифр, и быть длинной до 20 символов.';
     return isValidTag;
+  }else{
+    errorMessages.valid = '';
   }
 
   if(!isLengthCorrect){
     errorMessages.length = 'Можно указать не более 5 хеш-тегов.';
     return isLengthCorrect;
+  }{
+    errorMessages.length = '';
   }
 
   if(!isAllTagsUnical){
     errorMessages.unicals = 'Хеш теги должны быть уникальны.';
     return isAllTagsUnical;
+  }{
+    errorMessages.unicals = '';
   }
 
   return isAllTagsUnical;
 };
 
 const initValidation = (form, hashTagField, descriptionField) => {
+  errorMessages.valid = '';
+  errorMessages.length = '';
+  errorMessages.unicals = '';
   const pristine = new Pristine(form,{
     classTo: 'img-upload__field-wrapper',
     errorClass: 'img-upload__field-wrapper--error',
