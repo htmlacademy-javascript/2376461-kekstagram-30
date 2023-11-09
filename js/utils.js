@@ -1,21 +1,19 @@
 //сравнить длинну троки с максимально возможной
-function checkMaxLength(str,mLength){
-  return str.length <= mLength;
-}
+const checkMaxLength = (str,mLength) => str.length <= mLength;
 //проверка на палиндром
-function isPalindrom(str){
+const isPalindrom = (str) => {
   const normalStr = str.toString().replaceAll(' ','').toLowerCase();
   const revercedStr = normalStr.split('').reverse().join('').toString();
 
   return normalStr === revercedStr;
-}
+};
 //получить все числа из строки
-function getNumbers(str){
+const getNumbers = (str) =>{
   let result = '';
-  let resStr = str.toString();
+  const resStr = str.toString();
 
   for (let i = 0; i < resStr.length; i++) {
-    const numInt = parseInt(resStr[i]);
+    const numInt = Number(resStr[i]);
 
     if (Number.isInteger(numInt)) {
       result += numInt.toString();
@@ -27,7 +25,7 @@ function getNumbers(str){
   }
 
   return Number(result);
-}
+};
 //получить случайное число
 const getRandomNumber = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 //получить случайный элемент из массива
@@ -42,4 +40,5 @@ const getId = () => {
   };
 };
 const isEscapeKey = (evt) => evt.key === 'Escape';
+
 export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId,isEscapeKey};

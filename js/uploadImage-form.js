@@ -41,10 +41,10 @@ const onEditingFormSubmit = (evt) =>{
   const isFieldsValid = pristie.validate();
 
   if(isFieldsValid){
-    console.log('is valid');
+  //форма влидна, отправляем
     closeImageEditingModal();
   }else{
-  console.log('is no Valid');
+  //Форма не валидна, отправка запрещена
   }
 };
 imageUploadForm.addEventListener('submit',onEditingFormSubmit);
