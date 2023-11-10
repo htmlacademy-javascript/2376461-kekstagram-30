@@ -13,11 +13,9 @@ const validateHashTagsField = (value) =>{
   const tags = value.trim().split(' ').filter((item) => item !== '');
   const isValidTag = tags.every((item) => hashTagPattern.test(item));
   const isLengthCorrect = tags.length <= MAXIMUM_HASHTAGS;
-  const unicalTags = new Set();
-  tags.forEach((item) => {
-    unicalTags.add(item);
-  });
-  const isAllTagsUnical = tags.length === unicalTags.size;
+  const uniqueTags = new Set(tags);
+
+  const isAllTagsUnical = tags.length === uniqueTags.size;
 
   if(!isValidTag){
     errorMessages.valid =
@@ -45,14 +43,12 @@ const validateHashTagsField = (value) =>{
 };
 
 const initValidation = (form, hashTagField, descriptionField) => {
-  errorMessages.valid = '';
-  errorMessages.length = '';
-  errorMessages.unicals = '';
+  form.reset();
   const pristine = new Pristine(form,{
     classTo: 'img-upload__field-wrapper',
     errorClass: 'img-upload__field-wrapper--error',
     errorTextParent: 'img-upload__field-wrapper',
-    errorTextTag: 'span',
+    errorTextTag: 'div',
     errorTextClass: 'field-error',
   });
 
