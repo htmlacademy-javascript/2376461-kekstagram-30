@@ -1,5 +1,7 @@
 import {isEscapeKey} from './utils.js';
 import {initValidation} from './validateFields.js';
+import {init as initEffects, reset as resetEffects} from './imageEffectEditing.js';
+import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
 let pristine;
 
 const imageUploadForm = document.querySelector('.img-upload__form');
@@ -11,12 +13,19 @@ const descriptionField = document.querySelector('.text__description');
 
 const closeImageEditingModal = () => {
   pristine.reset();
+
+  resetEffects();
+  resetScaleEditing();
+
   imageEditingModal.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
 
 const onChangeImage = () => {
   imageEditingModal.classList.remove('hidden');
+
+  initScaleEditing();
+
   document.querySelector('body').classList.add('modal-open');
 };
 
@@ -55,5 +64,6 @@ const initUploadImage = () =>{
   imageUploadInput.addEventListener('change', onChangeImage);
   imageEditingClose.addEventListener('click', closeImageEditingModal);
   pristine = initValidation(imageUploadForm,hashTagField,descriptionField);
+  initEffects();
 };
 export{initUploadImage};
