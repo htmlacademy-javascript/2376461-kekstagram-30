@@ -3,7 +3,7 @@ import {getNumbers} from './utils.js';
 const scaleSmalerContol = document.querySelector('.scale__control--smaller');
 const scaleBiggerContol = document.querySelector('.scale__control--bigger');
 const scaleValueContol = document.querySelector('.scale__control--value');
-const imagePreview = document.querySelector('.img-upload__preview');
+const imagePreview = document.querySelector('.img-upload__preview img');
 
 const SCALE_COUNT_STEP = 25;
 
