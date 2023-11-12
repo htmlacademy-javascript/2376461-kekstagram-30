@@ -31,9 +31,6 @@ const onMinusButtonDown = ()=>{
   downScaleImage();
 };
 
-scaleSmalerContol.addEventListener('click',onMinusButtonDown);
-scaleBiggerContol.addEventListener('click',onPLusButtonDown);
-
 const initScaleEditing = () =>{
   scaleSmalerContol.addEventListener('click',onMinusButtonDown);
   scaleBiggerContol.addEventListener('click',onPLusButtonDown);
