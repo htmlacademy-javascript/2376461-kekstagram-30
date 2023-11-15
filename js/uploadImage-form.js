@@ -1,6 +1,8 @@
 import {isEscapeKey} from './utils.js';
 import {initValidation} from './validateFields.js';
-let pristie;
+import {init as initEffects, reset as resetEffects} from './imageEffectEditing.js';
+import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
+let pristine;
 
 const imageUploadForm = document.querySelector('.img-upload__form');
 const imageUploadInput = document.querySelector('.img-upload__input');
@@ -10,20 +12,21 @@ const hashTagField = document.querySelector('.text__hashtags');
 const descriptionField = document.querySelector('.text__description');
 
 const closeImageEditingModal = () => {
-  imageUploadInput.value = '';
-  hashTagField.value = '';
-  descriptionField.value = '';
+  pristine.reset();
+
+  resetEffects();
+  resetScaleEditing();
 
   imageEditingModal.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
-imageEditingClose.addEventListener('click', closeImageEditingModal);
 
-const onChangeFormInput = () => {
+const onChangeImage = () => {
   imageEditingModal.classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
 
-  pristie = initValidation(imageUploadForm,hashTagField,descriptionField);
+  initScaleEditing();
+
+  document.querySelector('body').classList.add('modal-open');
 };
 
 
@@ -38,10 +41,10 @@ document.addEventListener('keydown',onImageEditingEscDown);
 const onEditingFormSubmit = (evt) =>{
   evt.preventDefault();
 
-  const isFieldsValid = pristie.validate();
+  const isFieldsValid = pristine.validate();
 
   if(isFieldsValid){
-  //форма влидна, отправляем
+  //форма валидна, отправляем
     closeImageEditingModal();
   }else{
   //Форма не валидна, отправка запрещена
@@ -57,7 +60,10 @@ const onFocusStopPropagation = (evt) => {
 hashTagField.addEventListener('keydown',onFocusStopPropagation);
 descriptionField.addEventListener('keydown',onFocusStopPropagation);
 
-const uploadingImage = () =>{
-  imageUploadInput.addEventListener('change', onChangeFormInput);
+const initUploadImage = () =>{
+  imageUploadInput.addEventListener('change', onChangeImage);
+  imageEditingClose.addEventListener('click', closeImageEditingModal);
+  pristine = initValidation(imageUploadForm,hashTagField,descriptionField);
+  initEffects();
 };
-export{uploadingImage};
+export{initUploadImage};
