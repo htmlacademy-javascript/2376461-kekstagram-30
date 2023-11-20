@@ -39,6 +39,15 @@ const getId = () => {
     return count;
   };
 };
+//проверка нажата ли клавиша Esc, возвращает true/false
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export{checkMaxLength,isPalindrom,getNumbers,getRandomElementFromArr,getRandomNumber,getId,isEscapeKey};
+export{
+  checkMaxLength,
+  isPalindrom,
+  getNumbers,
+  getRandomElementFromArr,
+  getRandomNumber,
+  getId,
+  isEscapeKey,
+};
