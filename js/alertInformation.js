@@ -21,10 +21,14 @@ const errorLoadAlert = (textAlert = 'Упс... Произошла ошибка!'
 
 const hideAlert = () => {
   const existsElement = document.querySelector('.success') || document.querySelector('.error');
+  if(!existsElement){
+    return;
+  }
   existsElement.remove();
 
   document.removeEventListener('keydown',onEscapeDown);
   document.removeEventListener('click',handleClickOutside);
+  document.removeEventListener('click',handleCloseAlert);
 };
 
 function onEscapeDown (evt){
@@ -40,9 +44,9 @@ function handleClickOutside (evt,inner) {
   }
 }
 
-const handleCloseAlert = () => {
+function handleCloseAlert () {
   hideAlert();
-};
+}
 
 //вывод сообщения об успешной отправке данных
 const successUploadAlert = (textAlert = 'Изображение успешно загружено') => {
@@ -55,7 +59,7 @@ const successUploadAlert = (textAlert = 'Изображение успешно �
 
   const successButton = successNode.querySelector('.success__button');
   const successInner = successNode.querySelector('.success__inner');
-  successButton.addEventListener('click',() => handleCloseAlert());
+  successButton.addEventListener('click',handleCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
   document.addEventListener('click',(evt) => handleClickOutside(evt,successInner),{once: true});
 
@@ -72,7 +76,7 @@ const errorUploadAlert = (textAlert = 'Ошибка загрузки файла'
 
   const errorButton = errorNode.querySelector('.error__button');
   const errorInner = errorNode.querySelector('.error__inner');
-  errorButton.addEventListener('click',() => handleCloseAlert());
+  errorButton.addEventListener('click',handleCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
   document.addEventListener('click',(evt) => handleClickOutside(evt,errorInner),{once: true});
 
