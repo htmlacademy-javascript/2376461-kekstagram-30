@@ -2,41 +2,67 @@ import {isEscapeKey} from './utils.js';
 import {initValidation} from './validateFields.js';
 import {init as initEffects, reset as resetEffects} from './imageEffectEditing.js';
 import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
+import { sendData } from './api.js';
+import {successUploadAlert} from './alertInformation.js';
+
 let pristine;
 
 const imageUploadForm = document.querySelector('.img-upload__form');
-const imageUploadInput = document.querySelector('.img-upload__input');
-const imageEditingModal = document.querySelector('.img-upload__overlay');
-const imageEditingClose = document.querySelector('.img-upload__cancel');
-const hashTagField = document.querySelector('.text__hashtags');
-const descriptionField = document.querySelector('.text__description');
+const imageUploadInput = imageUploadForm.querySelector('.img-upload__input');
+const imageEditingModal = imageUploadForm.querySelector('.img-upload__overlay');
+const imageEditingClose = imageUploadForm.querySelector('.img-upload__cancel');
+const hashTagField = imageUploadForm.querySelector('.text__hashtags');
+const descriptionField = imageUploadForm.querySelector('.text__description');
+const submitButton = imageUploadForm.querySelector('.img-upload__submit');
+
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'отправка...';
+};
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'опубликовать';
+};
 
 const closeImageEditingModal = () => {
-  pristine.reset();
+  imageUploadForm.reset();
 
   resetEffects();
   resetScaleEditing();
 
+  unblockSubmitButton();
+  document.removeEventListener('keydown',onImageEditingEscDown);
   imageEditingModal.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
 };
+const sucessUploadImage = () => {
+  closeImageEditingModal();
+  successUploadAlert();
+};
+
+function onImageEditingEscDown (evt){
+  const isErrorMessageExists = Boolean(document.querySelector('.error'));
+  if (isEscapeKey(evt) && ! isErrorMessageExists) {
+    evt.preventDefault();
+    closeImageEditingModal();
+  }
+}
 
 const onChangeImage = () => {
+  if(imageUploadInput.value === ''){
+    return;
+  }
   imageEditingModal.classList.remove('hidden');
 
   initScaleEditing();
+  document.addEventListener('keydown',onImageEditingEscDown);
 
   document.querySelector('body').classList.add('modal-open');
 };
 
-
-const onImageEditingEscDown = (evt) => {
-  if (isEscapeKey(evt)) {
-    evt.preventDefault();
-    closeImageEditingModal();
-  }
+const submitError = () =>{
+  unblockSubmitButton();
 };
-document.addEventListener('keydown',onImageEditingEscDown);
 
 const onEditingFormSubmit = (evt) =>{
   evt.preventDefault();
@@ -44,8 +70,9 @@ const onEditingFormSubmit = (evt) =>{
   const isFieldsValid = pristine.validate();
 
   if(isFieldsValid){
-  //форма валидна, отправляем
-    closeImageEditingModal();
+    blockSubmitButton();
+    const formData = new FormData(imageUploadForm);
+    sendData(formData,sucessUploadImage).catch(submitError());
   }else{
   //Форма не валидна, отправка запрещена
   }

@@ -1,10 +1,12 @@
-import {createAllDescriptions} from './data.js';
 import {createMiniatures} from './miniatures.js';
 import {initFullScreenPicture} from './fullScreenPicture.js';
 import {initUploadImage} from './uploadImage-form.js';
+import {getData} from './api.js';
 
-const dataPictures = createAllDescriptions(25);
+getData()
+  .then((data) => {
+    createMiniatures(data);
+    initFullScreenPicture(data);
+  });
 
-createMiniatures(dataPictures);
-initFullScreenPicture(dataPictures);
 initUploadImage();
