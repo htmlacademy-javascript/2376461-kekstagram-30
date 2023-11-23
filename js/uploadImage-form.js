@@ -2,7 +2,7 @@ import {isEscapeKey} from './utils.js';
 import {initValidation} from './validateFields.js';
 import {init as initEffects, reset as resetEffects} from './imageEffectEditing.js';
 import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
-import { sendData } from './api.js';
+import { postData } from './api.js';
 import {successUploadAlert} from './alertInformation.js';
 
 let pristine;
@@ -27,6 +27,7 @@ const unblockSubmitButton = () => {
 
 const closeImageEditingModal = () => {
   imageUploadForm.reset();
+  pristine.reset();
 
   resetEffects();
   resetScaleEditing();
@@ -59,6 +60,7 @@ const onChangeImage = () => {
     imagePreview.setAttribute('src', evt.target.result);
   };
 
+
   imageEditingModal.classList.remove('hidden');
 
   initScaleEditing();
@@ -75,11 +77,10 @@ const onEditingFormSubmit = (evt) =>{
   evt.preventDefault();
 
   const isFieldsValid = pristine.validate();
-
   if(isFieldsValid){
     blockSubmitButton();
     const formData = new FormData(imageUploadForm);
-    sendData(formData,sucessUploadImage).catch(submitError());
+    postData(formData,sucessUploadImage).catch(submitError());
   }else{
   //Форма не валидна, отправка запрещена
   }
