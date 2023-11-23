@@ -14,6 +14,7 @@ const imageEditingClose = imageUploadForm.querySelector('.img-upload__cancel');
 const hashTagField = imageUploadForm.querySelector('.text__hashtags');
 const descriptionField = imageUploadForm.querySelector('.text__description');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
+const imagePreview = imageUploadForm.querySelector('.img-upload__preview img');
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -52,6 +53,12 @@ const onChangeImage = () => {
   if(imageUploadInput.value === ''){
     return;
   }
+
+  const reader = new FileReader();
+  reader.onload = function (evt) {
+    imagePreview.setAttribute('src', evt.target.result);
+  };
+
   imageEditingModal.classList.remove('hidden');
 
   initScaleEditing();
