@@ -13,7 +13,9 @@ const clearElements = () => {
 
 const createMiniatures = (data)=>{
   clearElements();
-
+  if(!data){
+    return;
+  }
   const picFragment = document.createDocumentFragment();
 
   data.forEach(({id,url,description,comments,likes}) => {
