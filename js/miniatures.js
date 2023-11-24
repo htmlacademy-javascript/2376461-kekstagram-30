@@ -1,7 +1,19 @@
 const PICTURE_TEMPLATE = document.querySelector('#picture').content.querySelector('.picture');
 const PICTURE_LIST = document.querySelector('.pictures');
 
+const clearElements = () => {
+  const PICTURES = PICTURE_LIST.querySelectorAll('.picture');
+  if(!PICTURES){
+    return;
+  }
+  const arrPictures = Array.from(PICTURES);
+
+  arrPictures.forEach((item) => item.remove());
+};
+
 const createMiniatures = (data)=>{
+  clearElements();
+
   const picFragment = document.createDocumentFragment();
 
   data.forEach(({id,url,description,comments,likes}) => {
@@ -13,6 +25,7 @@ const createMiniatures = (data)=>{
     pictureNode.querySelector('.picture__likes').textContent = likes;
     picFragment.append(pictureNode);
   });
+
   PICTURE_LIST.append(picFragment);
 };
 
