@@ -5,6 +5,7 @@ import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
 import { postData } from './api.js';
 import {successUploadAlert} from './alertInformation.js';
 
+const FILE_TYPES = ['jpg', 'jpeg', 'png', 'svg'];
 let pristine;
 
 const imageUploadForm = document.querySelector('.img-upload__form');
@@ -15,6 +16,7 @@ const hashTagField = imageUploadForm.querySelector('.text__hashtags');
 const descriptionField = imageUploadForm.querySelector('.text__description');
 const submitButton = imageUploadForm.querySelector('.img-upload__submit');
 const imagePreview = imageUploadForm.querySelector('.img-upload__preview img');
+const effectsPreview = imageUploadForm.querySelectorAll('.effects__preview');
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
@@ -32,7 +34,7 @@ const closeImageEditingModal = () => {
   resetEffects();
   resetScaleEditing();
 
-  unblockSubmitButton();
+
   document.removeEventListener('keydown',onImageEditingEscDown);
   imageEditingModal.classList.add('hidden');
   document.querySelector('body').classList.remove('modal-open');
@@ -40,6 +42,7 @@ const closeImageEditingModal = () => {
 const sucessUploadImage = () => {
   closeImageEditingModal();
   successUploadAlert();
+  unblockSubmitButton();
 };
 
 function onImageEditingEscDown (evt){
@@ -50,16 +53,21 @@ function onImageEditingEscDown (evt){
   }
 }
 
+const isValidType = (file) =>{
+  const fileName = file.name.toLowerCase();
+  return FILE_TYPES.some((it) => fileName.endsWith(it));
+};
+
 const onChangeImage = () => {
-  if(imageUploadInput.value === ''){
+  const file = imageUploadInput.files[0];
+  if(!file || !isValidType(file)){
     return;
   }
+  imagePreview.src = URL.createObjectURL(file); // Создаем Blob URL
 
-  const reader = new FileReader();
-  reader.onload = function (evt) {
-    imagePreview.setAttribute('src', evt.target.result);
-  };
-
+  effectsPreview.forEach((item) => {
+    item.style.backgroundImage = `url(${imagePreview.src})`;
+  });
 
   imageEditingModal.classList.remove('hidden');
 
@@ -77,15 +85,17 @@ const onEditingFormSubmit = (evt) =>{
   evt.preventDefault();
 
   const isFieldsValid = pristine.validate();
+
   if(isFieldsValid){
     blockSubmitButton();
     const formData = new FormData(imageUploadForm);
-    postData(formData,sucessUploadImage).catch(submitError());
+    postData(formData,sucessUploadImage).catch(() => submitError());
   }else{
   //Форма не валидна, отправка запрещена
   }
 };
-imageUploadForm.addEventListener('submit',onEditingFormSubmit);
+
+imageUploadForm.addEventListener('submit',(evt) => onEditingFormSubmit(evt));
 
 const onFocusStopPropagation = (evt) => {
   if (isEscapeKey(evt)) {
