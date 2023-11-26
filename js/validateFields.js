@@ -10,7 +10,7 @@ const getHashTagErrors = () => Object.values(errorMessages).join(' ');
 const validateHashTagsField = (value) =>{
   const hashTagPattern = /^#[a-zа-яё0-9]{1,19}$/i;
 
-  const tags = value.trim().split(' ').filter((item) => item !== '');
+  const tags = value.trim().split(' ').filter((item) => item !== '').map((tag) => tag.toLowerCase());
   const isValidTag = tags.every((item) => hashTagPattern.test(item));
   const isLengthCorrect = tags.length <= MAXIMUM_HASHTAGS;
   const uniqueTags = new Set(tags);

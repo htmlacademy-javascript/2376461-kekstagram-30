@@ -24,6 +24,7 @@ const hideAlert = () => {
   if(!existsElement){
     return;
   }
+
   existsElement.remove();
 
   document.removeEventListener('keydown',onEscapeDown);
@@ -38,10 +39,11 @@ function onEscapeDown (evt){
   }
 }
 
-function handleClickOutside (evt,inner) {
-  if (!inner.contains(evt.target)) {
-    hideAlert();
+function handleClickOutside (evt) {
+  if (evt.target.closest('.success__inner') || evt.target.closest('.error__inner')) {
+    return;
   }
+  hideAlert();
 }
 
 function handleCloseAlert () {
@@ -58,10 +60,10 @@ const successUploadAlert = (textAlert = 'Изображение успешно �
   fragment.append(successNode);
 
   const successButton = successNode.querySelector('.success__button');
-  const successInner = successNode.querySelector('.success__inner');
+
   successButton.addEventListener('click',handleCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
-  document.addEventListener('click',(evt) => handleClickOutside(evt,successInner),{once: true});
+  document.addEventListener('click',handleClickOutside);
 
   document.body.append(fragment);
 };
@@ -75,10 +77,10 @@ const errorUploadAlert = (textAlert = 'Ошибка загрузки файла'
   fragment.append(errorNode);
 
   const errorButton = errorNode.querySelector('.error__button');
-  const errorInner = errorNode.querySelector('.error__inner');
+
   errorButton.addEventListener('click',handleCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
-  document.addEventListener('click',(evt) => handleClickOutside(evt,errorInner),{once: true});
+  document.addEventListener('click',handleClickOutside);
 
   document.body.append(fragment);
 };

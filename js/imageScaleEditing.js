@@ -13,7 +13,7 @@ const upScaleImage = () => {
     return;
   }
   scaleValueContol.value = `${scale + SCALE_COUNT_STEP}%`;
-  imagePreview.style.scale = (scale + SCALE_COUNT_STEP) / 100;
+  imagePreview.style.transform = `scale(${(scale + SCALE_COUNT_STEP) / 100})`;
 };
 const downScaleImage = () =>{
   const scale = getNumbers(scaleValueContol.value);
@@ -21,7 +21,7 @@ const downScaleImage = () =>{
     return;
   }
   scaleValueContol.value = `${scale - SCALE_COUNT_STEP}%`;
-  imagePreview.style.scale = (scale - SCALE_COUNT_STEP) / 100;
+  imagePreview.style.transform = `scale(${(scale - SCALE_COUNT_STEP) / 100})`;
 };
 
 const onPLusButtonDown = ()=>{

@@ -1,5 +1,5 @@
 import {createMiniatures} from './miniatures.js';
-import {getRandomElemensArr,sortObjectsByCommentsLength,throttle} from './utils.js';
+import {getRandomElemensArr,sortObjectsByCommentsLength,debounce} from './utils.js';
 
 const filters = document.querySelector('.img-filters');
 const filtersForm = document.querySelector('.img-filters__form');
@@ -26,42 +26,46 @@ const filterDefault = () => {
   }
 
   createMiniatures(imageData);
-  swithSelectedFiltor(Filters.DEFAULT);
+
 };
 const filterRandom = () =>{
   if(!imageData){
     return;
   }
   createMiniatures(getRandomElemensArr(imageData,RANDOM_IMAGES_COUNT));
-  swithSelectedFiltor(Filters.RANDOM);
+
 };
 const filterDiscussed = () =>{
   if(!imageData){
     return;
   }
   createMiniatures(sortObjectsByCommentsLength(imageData));
-  swithSelectedFiltor(Filters.DISCUSSED);
+
 };
 
-const throttledFilterDefault = throttle(filterDefault,500);
-const throttledFilterRandom = throttle(filterRandom,500);
-const throttledFilterDiscussed = throttle(filterDiscussed,500);
+const debouncedFilterDefault = debounce(filterDefault,500);
+const debouncedFilterRandom = debounce(filterRandom,500);
+const debouncedFilterDiscussed = debounce(filterDiscussed,500);
 
 const functionsFilters = {
   'filter-default': function(){
-    throttledFilterDefault();
+    debouncedFilterDefault();
+    swithSelectedFiltor(Filters.DEFAULT);
   },
   'filter-random': function(){
-    throttledFilterRandom();
+    debouncedFilterRandom();
+    swithSelectedFiltor(Filters.RANDOM);
   },
   'filter-discussed': function(){
-    throttledFilterDiscussed();
+    debouncedFilterDiscussed();
+    swithSelectedFiltor(Filters.DISCUSSED);
   },
 };
 
 const onFilterSelect = (evt) => {
   if(evt.target.id){
     const filerId = evt.target.id;
+
     functionsFilters[filerId]();
   }
 };

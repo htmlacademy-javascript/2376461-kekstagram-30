@@ -9,20 +9,22 @@ const getData = (url = 'https://30.javascript.pages.academy/kekstagram/data') =>
   .then((response) => response.json())
   .catch(() => (errorLoadAlert(errorText.load)));
 
-const sendData = (body,onSucess,url = 'https://30.javascript.pages.academy/kekstagram') => fetch(url,
-  {
-    method: 'POST',
-    body,
-  })
-  .then((response) => {
-    if(response.ok){
-      onSucess();
-    }else{
+const postData = (body,onSucess,url = 'https://30.javascript.pages.academy/kekstagram/') => (
+  fetch(url,
+    {
+      method: 'POST',
+      body,
+    })
+    .then((response) => {
+      if(response.ok){
+        onSucess();
+        return;
+      }
       throw new Error();
-    }
-  })
-  .catch(() => {
-    errorUploadAlert();
-  });
+    })
+    .catch(() => {
+      errorUploadAlert();
+    })
+);
 
-export{ getData,sendData };
+export{ getData,postData };
