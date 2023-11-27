@@ -6,7 +6,7 @@ const errorUpluadTemplate = document.querySelector('#error').content.querySelect
 const errorLoadTemplate = document.querySelector('#data-error').content.querySelector('.data-error');
 
 //вывод сообщения об ошибке загрузки данных, удаляется через ERROR_SHOWN_TIME (5 сек.)
-const errorLoadAlert = (textAlert = 'Упс... Произошла ошибка!') => {
+const errorLoadAlert = (textAlert = 'Ошибка загрузки данных') => {
   const errorFragment = document.createDocumentFragment();
   const errorNode = errorLoadTemplate.cloneNode(true);
 
@@ -28,8 +28,8 @@ const hideAlert = () => {
   existsElement.remove();
 
   document.removeEventListener('keydown',onEscapeDown);
-  document.removeEventListener('click',handleClickOutside);
-  document.removeEventListener('click',handleCloseAlert);
+  document.removeEventListener('click',onClickOutside);
+  document.removeEventListener('click',onCloseAlert);
 };
 
 function onEscapeDown (evt){
@@ -39,14 +39,14 @@ function onEscapeDown (evt){
   }
 }
 
-function handleClickOutside (evt) {
+function onClickOutside (evt) {
   if (evt.target.closest('.success__inner') || evt.target.closest('.error__inner')) {
     return;
   }
   hideAlert();
 }
 
-function handleCloseAlert () {
+function onCloseAlert () {
   hideAlert();
 }
 
@@ -61,9 +61,9 @@ const successUploadAlert = (textAlert = 'Изображение успешно �
 
   const successButton = successNode.querySelector('.success__button');
 
-  successButton.addEventListener('click',handleCloseAlert);
+  successButton.addEventListener('click',onCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
-  document.addEventListener('click',handleClickOutside);
+  document.addEventListener('click',onClickOutside);
 
   document.body.append(fragment);
 };
@@ -78,9 +78,9 @@ const errorUploadAlert = (textAlert = 'Ошибка загрузки файла'
 
   const errorButton = errorNode.querySelector('.error__button');
 
-  errorButton.addEventListener('click',handleCloseAlert);
+  errorButton.addEventListener('click',onCloseAlert);
   document.addEventListener('keydown',onEscapeDown);
-  document.addEventListener('click',handleClickOutside);
+  document.addEventListener('click',onClickOutside);
 
   document.body.append(fragment);
 };

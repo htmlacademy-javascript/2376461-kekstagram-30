@@ -14,7 +14,7 @@ const Filters = {
 };
 let selectedFilter = Filters.DEFAULT;
 
-const swithSelectedFiltor = (targetFiler) => {
+const swithSelectedFilter = (targetFiler) => {
   filtersForm.querySelector(`#${selectedFilter}`).classList.remove('img-filters__button--active');
   selectedFilter = targetFiler;
   filtersForm.querySelector(`#${targetFiler}`).classList.add('img-filters__button--active');
@@ -50,15 +50,15 @@ const debouncedFilterDiscussed = debounce(filterDiscussed,500);
 const functionsFilters = {
   'filter-default': function(){
     debouncedFilterDefault();
-    swithSelectedFiltor(Filters.DEFAULT);
+    swithSelectedFilter(Filters.DEFAULT);
   },
   'filter-random': function(){
     debouncedFilterRandom();
-    swithSelectedFiltor(Filters.RANDOM);
+    swithSelectedFilter(Filters.RANDOM);
   },
   'filter-discussed': function(){
     debouncedFilterDiscussed();
-    swithSelectedFiltor(Filters.DISCUSSED);
+    swithSelectedFilter(Filters.DISCUSSED);
   },
 };
 
