@@ -1,9 +1,9 @@
 import {isEscapeKey} from './utils.js';
-import {initValidation} from './validateFields.js';
-import {init as initEffects, reset as resetEffects} from './imageEffectEditing.js';
-import {initScaleEditing,resetScaleEditing} from './imageScaleEditing.js';
+import {initValidation} from './validate-fields.js';
+import {init as initEffects, reset as resetEffects} from './image-effect-editing.js';
+import {initScaleEditing,resetScaleEditing} from './image-scale-editing.js';
 import { postData } from './api.js';
-import {successUploadAlert} from './alertInformation.js';
+import {successUploadAlert} from './alert-information.js';
 
 const FILE_TYPES = ['jpg', 'jpeg', 'png', 'svg'];
 let pristine;
@@ -90,8 +90,6 @@ const onEditingFormSubmit = (evt) =>{
     blockSubmitButton();
     const formData = new FormData(imageUploadForm);
     postData(formData,sucessUploadImage).catch(() => submitError());
-  }else{
-  //Форма не валидна, отправка запрещена
   }
 };
 

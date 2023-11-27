@@ -1,13 +1,17 @@
 import {isEscapeKey} from './utils.js';
+
+const pictures = document.querySelector('.pictures');
+
 const bigPicture = document.querySelector('.big-picture');
-const pictureList = document.querySelector('.pictures');
-const closeButton = document.querySelector('.big-picture__cancel');
-const commentsButton = document.querySelector('.comments-loader');
+const closeButton = bigPicture.querySelector('.big-picture__cancel');
+const commentsButton = bigPicture.querySelector('.comments-loader');
+const commentsList = bigPicture.querySelector('.social__comments');
+const shownCommentCountElement = bigPicture.querySelector('.social__comment-shown-count');
+
 const commentsTemplate = document.querySelector('#comment').content.querySelector('.social__comment');
-const commentsList = document.querySelector('.social__comments');
-const shownCommentCountElement = document.querySelector('.social__comment-shown-count');
 
 const COUNT_STEP = 5;
+
 let currentLength = 0;
 let comments = [];
 
@@ -85,7 +89,7 @@ const showBigPicture = (data,evt) =>{
 };
 
 const initFullScreenPicture = (data) => {
-  pictureList.addEventListener('click', (evt) => showBigPicture(data,evt));
+  pictures.addEventListener('click', (evt) => showBigPicture(data,evt));
 };
 
 export {initFullScreenPicture};
