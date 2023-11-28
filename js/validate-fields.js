@@ -19,7 +19,7 @@ const validateHashTagsField = (value) =>{
 
   if(!isValidTag){
     errorMessages.valid =
-      'хэш-тег должен начинаеться с #, состоять из букв и цифр, и быть длинной до 20 символов.';
+      'хэш-тег должен начинается с #, состоять из букв и цифр, и быть длинной до 20 символов.';
     return isValidTag;
   }else{
     errorMessages.valid = '';
