@@ -1,10 +1,10 @@
-import {errorLoadAlert, errorUploadAlert} from './alert-information.js';
+import {showErrorLoadAlert, showErrorUploadAlert} from './alert-information.js';
 
 const getData = (url = 'https://30.javascript.pages.academy/kekstagram/data') => fetch(url)
   .then((response) => response.json())
-  .catch(() => (errorLoadAlert()));
+  .catch(() => (showErrorLoadAlert()));
 
-const postData = (body,onSucess,url = 'https://30.javascript.pages.academy/kekstagram/') => (
+const postData = (body,onSuccess,url = 'https://30.javascript.pages.academy/kekstagram/') => (
   fetch(url,
     {
       method: 'POST',
@@ -12,13 +12,13 @@ const postData = (body,onSucess,url = 'https://30.javascript.pages.academy/kekst
     })
     .then((response) => {
       if(response.ok){
-        onSucess();
+        onSuccess();
         return;
       }
       throw new Error();
     })
     .catch(() => {
-      errorUploadAlert();
+      showErrorUploadAlert();
     })
 );
 

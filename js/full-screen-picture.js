@@ -41,21 +41,16 @@ const renderComments = () =>{
 
 const closeBigPicture = () => {
   bigPicture.classList.add('hidden');
+  document.removeEventListener('keydown', onDocumentKeydown);
   document.querySelector('body').classList.remove('modal-open');
 };
 
-const onDocumentKeydown = (evt) => {
+function onDocumentKeydown(evt){
   if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
-};
-
-document.addEventListener('keydown', onDocumentKeydown);
-
-closeButton.addEventListener('click', () => {
-  closeBigPicture();
-});
+}
 
 const openBigPicture = (data) => {
   comments = data.comments;
@@ -72,8 +67,12 @@ const openBigPicture = (data) => {
 
   renderComments();
 
-  shownCommentCountElement.textContent = commentsList.children.length;
-  bigPicture.querySelector('.social__comment-total-count').textContent = data.comments.length;
+  shownCommentCountElement.textContent = String(commentsList.children.length);
+  bigPicture.querySelector('.social__comment-total-count').textContent = String(data.comments.length);
+};
+
+const onRenderComments = () => {
+  renderComments();
 };
 
 const showBigPicture = (data,evt) =>{
@@ -85,11 +84,16 @@ const showBigPicture = (data,evt) =>{
   evt.preventDefault();
   const picture = data.find((item) => item.id === id);
   openBigPicture(picture);
-  commentsButton.addEventListener('click', renderComments);
+  document.addEventListener('keydown', onDocumentKeydown);
+  commentsButton.addEventListener('click', onRenderComments);
 };
 
 const initFullScreenPicture = (data) => {
   pictures.addEventListener('click', (evt) => showBigPicture(data,evt));
+
+  closeButton.addEventListener('click', () => {
+    closeBigPicture();
+  });
 };
 
 export {initFullScreenPicture};

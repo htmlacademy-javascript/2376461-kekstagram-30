@@ -1,5 +1,5 @@
 import {createMiniatures} from './miniatures.js';
-import {getRandomElemensArr,sortObjectsByCommentsLength,debounce} from './utils.js';
+import {getRandomElementsArr,sortObjectsByCommentsLength,debounce} from './utils.js';
 
 const filters = document.querySelector('.img-filters');
 const filtersForm = document.querySelector('.img-filters__form');
@@ -14,7 +14,7 @@ const Filters = {
 };
 let selectedFilter = Filters.DEFAULT;
 
-const swithSelectedFilter = (targetFiler) => {
+const switchSelectedFilter = (targetFiler) => {
   filtersForm.querySelector(`#${selectedFilter}`).classList.remove('img-filters__button--active');
   selectedFilter = targetFiler;
   filtersForm.querySelector(`#${targetFiler}`).classList.add('img-filters__button--active');
@@ -32,7 +32,7 @@ const filterRandom = () =>{
   if(!imageData){
     return;
   }
-  createMiniatures(getRandomElemensArr(imageData,RANDOM_IMAGES_COUNT));
+  createMiniatures(getRandomElementsArr(imageData,RANDOM_IMAGES_COUNT));
 
 };
 const filterDiscussed = () =>{
@@ -50,15 +50,15 @@ const debouncedFilterDiscussed = debounce(filterDiscussed,500);
 const functionsFilters = {
   'filter-default': function(){
     debouncedFilterDefault();
-    swithSelectedFilter(Filters.DEFAULT);
+    switchSelectedFilter(Filters.DEFAULT);
   },
   'filter-random': function(){
     debouncedFilterRandom();
-    swithSelectedFilter(Filters.RANDOM);
+    switchSelectedFilter(Filters.RANDOM);
   },
   'filter-discussed': function(){
     debouncedFilterDiscussed();
-    swithSelectedFilter(Filters.DISCUSSED);
+    switchSelectedFilter(Filters.DISCUSSED);
   },
 };
 
